@@ -6,10 +6,10 @@ const manifest: ManifestV3Export = {
   version: "1.0.0",
   description: "Track live football match results with notifications",
   permissions: ["alarms", "storage", "notifications"],
-  host_permissions: ["https://www.openligadb.de/*"],
+  host_permissions: ["https://www.openligadb.de/*","https://api.openligadb.de/*"],
   content_security_policy: {
     extension_pages:
-      "script-src 'self'; object-src 'self'; connect-src 'self' https://www.openligadb.de;",
+      "script-src 'self'; object-src 'self'; connect-src 'self' https://www.openligadb.de https://api.openligadb.de;",
   },
   action: {
     default_popup: "src/popup/index.html",
