@@ -1,233 +1,223 @@
-# Football Match Tracker - Chrome Extension
+# Football Tracker - Monorepo
 
-A Chrome Extension (Manifest V3) that tracks live football match results using
-OpenLigaDB as the data source. Built with React, TypeScript, and Vite.
+A high-integrity pnpm monorepo for tracking live football match results across multiple platforms.
 
-## Features
-
-- **Live Match Tracking**: View matches for Bundesliga and other German leagues
-- **Watchlist**: Add matches to your watchlist for focused tracking
-- **Notifications**: Get notified when goals are scored or match status changes
-- **Smart Polling**: Faster updates during live matches, slower when idle
-- **Badge Updates**: See the number of live watched matches in the extension badge
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 football-tracker/
-├── package.json              # Dependencies and scripts
-├── tsconfig.json             # TypeScript configuration
-├── vite.config.ts            # Vite + CRXJS config
-├── public/
-│   └── icons/                # Extension icons (add your own)
-├── src/
-│   ├── manifest.ts           # MV3 manifest definition
-│   ├── background/
-│   │   └── service-worker.ts # Background polling & notifications
-│   ├── popup/
-│   │   ├── index.html        # Popup entry
-│   │   ├── main.tsx          # Popup React mount
-│   │   ├── App.tsx           # Popup main component
-│   │   └── components/
-│   │       ├── MatchCard.tsx # Individual match display
-│   │       └── MatchList.tsx # Match list with sections
-│   ├── options/
-│   │   ├── index.html        # Options entry
-│   │   ├── main.tsx          # Options React mount
-│   │   └── App.tsx           # Options main component
-│   ├── shared/
-│   │   ├── types/
-│   │   │   └── domain.ts     # TypeScript domain model
-│   │   ├── api/
-│   │   │   └── openLigaDbClient.ts  # API adapter (swappable)
-│   │   ├── services/
-│   │   │   ├── storage.ts    # Chrome storage wrapper
-│   │   │   ├── diff.ts       # Match diff engine
-│   │   │   └── notifications.ts     # Notification manager
-│   │   └── constants.ts      # App constants
-│   └── styles/
-│       └── global.css        # Global styles
-└── README.md
+├── apps/
+│   ├── extension/          # Chrome Extension (Manifest V3)
+│   ├── mobile/             # React Native / Expo App
+│   └── backend/            # Cloudflare Worker API
+├── packages/
+│   └── shared/             # Shared types & Zod schemas
+├── pnpm-workspace.yaml     # Workspace configuration
+└── package.json            # Root package.json
 ```
 
-## Setup & Installation
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ and npm
-- Google Chrome browser
+- **Node.js**: >= 18.0.0
+- **pnpm**: >= 8.0.0
 
-### Development Setup
-
-1. **Install dependencies:**
+Install pnpm if you haven't already:
 
 ```bash
-cd football-tracker
-npm install
+npm install -g pnpm
 ```
 
-This will automatically run `npm run setup` to create placeholder icons.
-
-2. **Build the extension:**
+### Installation
 
 ```bash
-npm run build
+# Install all dependencies for the monorepo
+pnpm install
 ```
 
-This creates a `dist/` folder with the compiled extension.
+## 📦 Apps & Packages
 
-3. **Load in Chrome:**
+### Chrome Extension (`apps/extension`)
 
-- Open Chrome and go to `chrome://extensions/`
-- Enable "Developer mode" (toggle in top-right)
-- Click "Load unpacked"
-- Select the `dist/` folder
-- The extension should now appear with its icon in the toolbar
-
-### Development Mode
-
-For active development with hot reload:
+Live football match tracker as a Chrome Extension.
 
 ```bash
-npm run dev
+# Development mode
+pnpm dev:extension
+
+# Build for production
+pnpm build:extension
 ```
 
-Then load the extension from the `dist/` folder. The extension will auto-reload
-when you make changes (you may need to click the refresh icon in
-`chrome://extensions/` for service worker changes).
+See [apps/extension/README.md](./apps/extension/README.md) for details.
 
-## Usage
+### Mobile App (`apps/mobile`)
 
-### Popup
+React Native / Expo mobile application (placeholder).
 
-1. Click the extension icon to open the popup
-2. Browse matches for the configured league/season
-3. Click the ☆ star icon to add matches to your watchlist
-4. Click 🔄 to refresh match data
-5. Click ⚙️ to open settings
+```bash
+# Start Expo development server
+pnpm dev:mobile
+```
 
-### Settings
+See [apps/mobile/README.md](./apps/mobile/README.md) for details.
 
-- **League**: Choose from Bundesliga, 2. Bundesliga, 3. Liga, or DFB-Pokal
-- **Season**: Select the season year
-- **Goal Notifications**: Toggle notifications for goals
-- **Match Event Notifications**: Toggle notifications for kickoff/halftime/fulltime
-- **In-Play Interval**: How often to poll during live matches (default: 60s)
-- **Idle Interval**: How often to poll when no matches are live (default: 300s)
+### Backend (`apps/backend`)
 
-## API Adapter Pattern
+Cloudflare Worker for API proxy and data aggregation (placeholder).
 
-The extension is designed to easily swap the data provider. The
-`openLigaDbClient.ts` implements a `MatchDataProvider` interface:
+```bash
+# Start local development server
+pnpm dev:backend
+
+# Deploy to Cloudflare
+cd apps/backend
+pnpm deploy
+```
+
+See [apps/backend/README.md](./apps/backend/README.md) for details.
+
+### Shared Package (`packages/shared`)
+
+Shared TypeScript types and Zod schemas consumed by all apps.
+
+- **Location**: `@football-tracker/shared`
+- **Exports**: Types, Zod schemas, utility functions
+- **Usage**: All apps import from `@football-tracker/shared`
+
+## 🔧 Workspace Commands
+
+```bash
+# Run dev for all apps (not recommended, use individual commands)
+pnpm -r dev
+
+# Build all apps
+pnpm build
+
+# Type check all packages
+pnpm typecheck
+
+# Clean all build artifacts
+pnpm clean
+```
+
+## 🎯 Key Principles
+
+### 1. Shared Types
+
+All domain types (`Match`, `Team`, `Score`, etc.) live in `packages/shared` and are consumed via `@football-tracker/shared`. This ensures:
+
+- **Single source of truth** for data models
+- **Type safety** across all apps
+- **Runtime validation** with Zod schemas
+
+### 2. Minimalist Approach
+
+Only essential dependencies. No unnecessary "bloat" packages.
+
+### 3. Functionality First
+
+The extension remains fully functional after the monorepo refactor. All original features work as expected.
+
+## 📝 Type Safety
+
+The shared package uses Zod for runtime validation and TypeScript for compile-time type safety:
 
 ```typescript
-interface MatchDataProvider {
-  fetchMatchesByLeague(
-    leagueShortcut: string,
-    seasonYear: number
-  ): Promise<Match[]>;
-  fetchMatchById(matchId: number): Promise<Match>;
-  fetchMatchesByIds(matchIds: number[]): Promise<Match[]>;
+import { Match, MatchSchema } from '@football-tracker/shared';
+
+// TypeScript type
+const match: Match = { /* ... */ };
+
+// Runtime validation
+const validated = MatchSchema.parse(unknownData);
+```
+
+## 🔗 Workspace Protocol
+
+Apps reference the shared package using pnpm's workspace protocol:
+
+```json
+{
+  "dependencies": {
+    "@football-tracker/shared": "workspace:*"
+  }
 }
 ```
 
-### Swapping to a Paid API
+## 📚 Architecture
 
-1. Create a new file (e.g., `src/shared/api/paidApiClient.ts`)
-
-2. Implement the same interface, mapping the paid API's response to the
-   domain `Match` type:
-
-```typescript
-import { Match, MatchDataProvider } from "../types/domain";
-
-export const paidApiProvider: MatchDataProvider = {
-  async fetchMatchesByLeague(league, season) {
-    // Call paid API and map response
-    const response = await fetch(`https://paid-api.com/...`);
-    const data = await response.json();
-    return data.map(mapPaidApiToMatch);
-  },
-  // ... other methods
-};
+```
+┌─────────────────────────────────────────────────────────┐
+│                  @football-tracker/shared               │
+│  (Types, Zod Schemas, Domain Logic, Utilities)          │
+└─────────────────────────────────────────────────────────┘
+         ▲                    ▲                    ▲
+         │                    │                    │
+    ┌────┴────┐         ┌────┴────┐         ┌────┴────┐
+    │Extension│         │ Mobile  │         │ Backend │
+    │(Chrome) │         │ (Expo)  │         │(CF Wrkr)│
+    └─────────┘         └─────────┘         └─────────┘
 ```
 
-3. Update imports in:
+## 🛠️ Development Workflow
 
-   - `src/background/service-worker.ts`
-   - `src/popup/App.tsx`
+1. **Make changes to shared types**:
+   - Edit files in `packages/shared/src/`
+   - All apps automatically get the updates
 
-4. Add new host permissions to `src/manifest.ts` if needed
+2. **Work on an app**:
+   ```bash
+   cd apps/extension
+   pnpm dev
+   ```
 
-The domain model (`Match`, `Team`, `Score`, etc.) remains unchanged, so the
-rest of the application (diff engine, notifications, UI) works without
-modification.
+3. **Type check everything**:
+   ```bash
+   pnpm typecheck
+   ```
 
-## OpenLigaDB API Notes
+## 📖 Documentation
 
-The extension uses these OpenLigaDB endpoints:
+- [Extension Documentation](./apps/extension/README.md)
+- [Mobile App Documentation](./apps/mobile/README.md)
+- [Backend Documentation](./apps/backend/README.md)
 
-- `GET /api/getmatchdata/{league}/{season}` - All matches for a league/season
-- `GET /api/getmatchdata/{matchId}` - Single match by ID
+## 🧪 Testing
 
-**Limitations:**
+```bash
+# Type check (serves as basic validation)
+pnpm typecheck
 
-- OpenLigaDB doesn't provide real-time minute data, so match minutes are
-  estimated based on elapsed time
-- Status detection (halftime, etc.) is inferred from available data
-- Only German leagues are available
+# Build all apps (ensures no broken imports)
+pnpm build
+```
 
-A paid API like football-data.org or API-Football would provide:
+## 🚢 Deployment
 
-- Real-time match minutes
-- More accurate status updates
-- More leagues and competitions
-- Player-level events (who scored)
+### Chrome Extension
+Build and upload to Chrome Web Store:
+```bash
+pnpm build:extension
+# Upload dist/ folder to Chrome Web Store
+```
 
-## Technical Details
+### Mobile App
+Build and deploy via Expo:
+```bash
+cd apps/mobile
+pnpm build
+eas build
+```
 
-### MV3 Compliance
+### Backend
+Deploy to Cloudflare:
+```bash
+cd apps/backend
+pnpm deploy
+```
 
-- Uses `chrome.alarms` for polling (no persistent background)
-- Service worker properly handles startup/install events
-- All storage uses `chrome.storage.sync` and `chrome.storage.local`
-
-### Polling Logic
-
-- In-play interval used when any watched match is live
-- Idle interval used when no matches are live
-- Exponential backoff on network errors (up to 5 retries)
-- Automatic recovery when connection restores
-
-### Notification Deduplication
-
-Events are deduplicated using signatures:
-
-- Goal: `goal:{matchId}:{home}-{away}`
-- Status: `status:{matchId}:{status}`
-
-Processed signatures are stored and trimmed to prevent memory growth.
-
-## Troubleshooting
-
-### Extension not loading
-
-- Ensure all icon files exist in `public/icons/`
-- Check for TypeScript errors: `npm run build`
-- Look for errors in `chrome://extensions/`
-
-### Notifications not showing
-
-- Check notification permissions in Chrome settings
-- Ensure notifications are enabled in extension options
-- Check if matches are in your watchlist
-
-### Data not updating
-
-- Click the refresh button in popup
-- Check browser console for API errors
-- Verify network connection
-
-## License
+## 📄 License
 
 MIT
