@@ -171,6 +171,11 @@ const App: React.FC = () => {
         <span className="league-badge">
           {preferences.leagueShortcut.toUpperCase()}
         </span>
+          <img 
+            src="/icons/germany.png" 
+            alt="Germany" 
+            className="league-flag" 
+  />
         <span className="season-badge">{formatSeasonYear(preferences.seasonYear)}</span>
         <span className="watch-count">{watchlist.length} watching</span>
       </div>

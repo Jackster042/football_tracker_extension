@@ -170,6 +170,16 @@ body {
   color: white;
 }
 
+.league-flag {
+  width: 16px;
+  height: 14px;
+  object-fit: fill;
+  /* border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0; */
+}
+
 .season-badge {
   background: var(--bg-card);
   color: var(--text-secondary);
