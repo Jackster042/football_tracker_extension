@@ -19,7 +19,7 @@ const MatchList: React.FC<MatchListProps> = ({
         <span className="empty-icon">📋</span>
         <p>No matches found</p>
         <p className="empty-hint">
-          Try changing the league or season in settings
+          Try changing the league in settings
         </p>
       </div>
     );

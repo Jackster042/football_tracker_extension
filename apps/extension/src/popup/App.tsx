@@ -19,6 +19,49 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  /**
+   * Filter matches to show only current/next matchday
+   * When live matches exist: show current + next matchday
+   * When no live matches: show next upcoming matchday only
+   */
+  const filterMatchesByMatchday = useCallback((matches: Match[]): Match[] => {
+    const liveMatches = matches.filter(
+      (m) => m.status === "in_play" || m.status === "halftime"
+    );
+    const scheduledMatches = matches.filter((m) => m.status === "scheduled");
+
+    if (liveMatches.length > 0) {
+      // Get current matchday from live matches
+      const currentMatchDay = liveMatches[0].matchDay;
+      const nextMatchDay = currentMatchDay + 1;
+
+      // Return all matches from current round + next round
+      return matches.filter(
+        (m) => m.matchDay === currentMatchDay || m.matchDay === nextMatchDay
+      );
+    } else {
+      // No live matches - find next upcoming matchday by date
+      const now = new Date();
+      const upcomingMatches = scheduledMatches
+        .filter((m) => new Date(m.matchDateTime) > now)
+        .sort(
+          (a, b) =>
+            new Date(a.matchDateTime).getTime() -
+            new Date(b.matchDateTime).getTime()
+        );
+
+      if (upcomingMatches.length === 0) {
+        return matches; // No upcoming matches, return all
+      }
+
+      // Get the matchday of the next match
+      const nextMatchDay = upcomingMatches[0].matchDay;
+
+      // Return only matches from that matchday
+      return matches.filter((m) => m.matchDay === nextMatchDay);
+    }
+  }, []);
+
   const loadData = useCallback(async () => {
     try {
       setLoadingState("loading");
@@ -37,8 +80,11 @@ const App: React.FC = () => {
         prefs.seasonYear
       );
 
+      // Filter to show only current/next matchday
+      const filteredMatches = filterMatchesByMatchday(matchData);
+
       // Sort matches: in-play first, then by date
-      const sortedMatches = [...matchData].sort((a, b) => {
+      const sortedMatches = [...filteredMatches].sort((a, b) => {
         const statusOrder: Record<string, number> = {
           in_play: 0,
           halftime: 1,
@@ -64,7 +110,7 @@ const App: React.FC = () => {
       setError(err instanceof Error ? err.message : "Failed to load matches");
       setLoadingState("error");
     }
-  }, []);
+  }, [filterMatchesByMatchday]);
 
   useEffect(() => {
     loadData();

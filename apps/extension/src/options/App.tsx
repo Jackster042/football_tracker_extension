@@ -77,10 +77,6 @@ const App: React.FC = () => {
     setSaveState("idle");
   };
 
-  // Generate season year options (current year +/- 5 years)
-  const currentYear = new Date().getFullYear();
-  const yearOptions = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
-
   return (
     <div className="options-container">
       <header className="options-header">
@@ -91,11 +87,11 @@ const App: React.FC = () => {
       </header>
 
       <main className="options-content">
-        {/* League & Season Section */}
+        {/* League Section */}
         <section className="settings-section">
           <h2 className="section-title">
             <span className="section-icon">🏆</span>
-            League & Season
+            League
           </h2>
 
           <div className="setting-group">
@@ -112,27 +108,7 @@ const App: React.FC = () => {
               ))}
             </select>
             <p className="setting-hint">
-              Select the league to track matches from
-            </p>
-          </div>
-
-          <div className="setting-group">
-            <label htmlFor="season">Season Year</label>
-            <select
-              id="season"
-              value={preferences.seasonYear}
-              onChange={(e) =>
-                handleChange("seasonYear", parseInt(e.target.value, 10))
-              }
-            >
-              {yearOptions.map((year) => (
-                <option key={year} value={year}>
-                  {year}/{year + 1}
-                </option>
-              ))}
-            </select>
-            <p className="setting-hint">
-              Select the season (e.g., 2025 = 2025/2026 season)
+              Select the league to track matches from (2025/2026 season)
             </p>
           </div>
         </section>

@@ -73,7 +73,7 @@ export function getEventSignature(event: MatchEvent): string {
 
 export const DEFAULT_PREFERENCES: Preferences = {
   leagueShortcut: "bl1", // Bundesliga
-  seasonYear: new Date().getFullYear(),
+  seasonYear: 2025,
   notifications: {
     goals: true,
     matchEvents: true,
