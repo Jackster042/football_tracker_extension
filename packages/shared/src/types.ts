@@ -47,7 +47,7 @@ export type MatchEvent = z.infer<typeof MatchEventSchema>;
 export interface MatchDataProvider {
   fetchMatchesByLeague(
     leagueShortcut: string,
-    seasonYear: number
+    seasonYear: number | string
   ): Promise<Match[]>;
   fetchMatchById(matchId: number): Promise<Match>;
   fetchMatchesByIds(matchIds: number[]): Promise<Match[]>;
@@ -91,3 +91,11 @@ export const DEFAULT_LOCAL_STORAGE: LocalStorageData = {
   lastPollTimestamp: null,
   consecutiveErrors: 0,
 };
+
+// Format the season year to be displayed in the UI
+export function formatSeasonYear(seasonYear: number | string): string {
+  const nextYearShort = (Number(seasonYear) + 1)
+  .toString()
+  .slice(2);
+  return `${seasonYear.toString()}/${nextYearShort}`;
+}

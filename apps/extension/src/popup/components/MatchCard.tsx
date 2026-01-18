@@ -5,12 +5,14 @@ interface MatchCardProps {
   match: Match;
   isWatched: boolean;
   onToggleWatch: () => void;
+  showLiveIndicator?: boolean; // New prop, defaults to true
 }
 
 const MatchCard: React.FC<MatchCardProps> = ({
   match,
   isWatched,
   onToggleWatch,
+  showLiveIndicator = true, // Default to true
 }) => {
   const { homeTeam, awayTeam, score, status, matchMinute, matchDateTime } =
     match;
@@ -103,7 +105,7 @@ const MatchCard: React.FC<MatchCardProps> = ({
 
       <div className="match-status">{getStatusBadge()}</div>
 
-      {isLive && (
+      {showLiveIndicator && isLive && (
         <div className="live-indicator">
           <span className="pulse"></span>
         </div>

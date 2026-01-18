@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Match } from "@football-tracker/shared";
 import MatchCard from "./MatchCard";
 
@@ -8,11 +8,33 @@ interface MatchListProps {
   onWatchlistChange: (newWatchlist: number[]) => void;
 }
 
+type TabType = "live" | "upcoming" | "finished";
+
 const MatchList: React.FC<MatchListProps> = ({
   matches,
   watchlist,
   onWatchlistChange,
 }) => {
+  // Group matches by status for better organization
+  const liveMatches = matches.filter(
+    (m) => m.status === "in_play" || m.status === "halftime"
+  );
+  const scheduledMatches = matches.filter((m) => m.status === "scheduled");
+  const finishedMatches = matches.filter((m) => m.status === "finished");
+
+  // Tab state - default to live if there are live matches, otherwise upcoming
+  const [activeTab, setActiveTab] = useState<TabType>(
+    liveMatches.length > 0 ? "live" : "upcoming"
+  );
+
+  // Update active tab when matches change (e.g., when live matches appear)
+  useEffect(() => {
+    if (liveMatches.length > 0 && activeTab === "upcoming") {
+      setActiveTab("live");
+    }
+  }, [liveMatches.length]);
+
+  // Check if all matches list is empty
   if (matches.length === 0) {
     return (
       <div className="empty-state">
@@ -25,15 +47,16 @@ const MatchList: React.FC<MatchListProps> = ({
     );
   }
 
-  // Group matches by status for better organization
-  const liveMatches = matches.filter(
-    (m) => m.status === "in_play" || m.status === "halftime"
-  );
-  const scheduledMatches = matches.filter((m) => m.status === "scheduled");
-  const finishedMatches = matches.filter((m) => m.status === "finished");
-  const otherMatches = matches.filter(
-    (m) => m.status === "postponed" || m.status === "cancelled"
-  );
+  // Tab counts
+  const liveCount = liveMatches.length;
+
+  // Filter matches based on active tab
+  const displayMatches =
+    activeTab === "live"
+      ? liveMatches
+      : activeTab === "upcoming"
+      ? scheduledMatches
+      : finishedMatches;
 
   const handleToggleWatch = async (matchId: number) => {
     const isCurrentlyWatched = watchlist.includes(matchId);
@@ -55,36 +78,52 @@ const MatchList: React.FC<MatchListProps> = ({
     onWatchlistChange(newWatchlist);
   };
 
-  const renderSection = (
-    title: string,
-    sectionMatches: Match[],
-    className: string
-  ) => {
-    if (sectionMatches.length === 0) return null;
+  return (
+    <div className="match-list">
+      {/* Tab Navigation */}
+      <div className="match-tabs">
+        <button
+          className={`tab ${activeTab === "live" ? "active" : ""}`}
+          onClick={() => setActiveTab("live")}
+        >
+          <span className="tab-icon">📡</span>
+          Live {liveCount > 0 && `(${liveCount})`}
+        </button>
+        <button
+          className={`tab ${activeTab === "upcoming" ? "active" : ""}`}
+          onClick={() => setActiveTab("upcoming")}
+        >
+          <span className="tab-icon">📅</span>
+          Upcoming
+        </button>
+        <button
+          className={`tab ${activeTab === "finished" ? "active" : ""}`}
+          onClick={() => setActiveTab("finished")}
+        >
+          <span className="tab-icon">✅</span>
+          Finished
+        </button>
+      </div>
 
-    return (
-      <div className={`match-section ${className}`}>
-        <h2 className="section-title">{title}</h2>
+      {/* Match Cards */}
+      {displayMatches.length === 0 ? (
+        <div className="empty-state">
+          <span className="empty-icon">📋</span>
+          <p>No {activeTab} matches</p>
+        </div>
+      ) : (
         <div className="match-cards">
-          {sectionMatches.map((match) => (
+          {displayMatches.map((match) => (
             <MatchCard
               key={match.matchId}
               match={match}
               isWatched={watchlist.includes(match.matchId)}
               onToggleWatch={() => handleToggleWatch(match.matchId)}
+              showLiveIndicator={activeTab !== "live"}
             />
           ))}
         </div>
-      </div>
-    );
-  };
-
-  return (
-    <div className="match-list">
-      {renderSection("🔴 Live", liveMatches, "live")}
-      {renderSection("📅 Upcoming", scheduledMatches, "scheduled")}
-      {renderSection("✅ Finished", finishedMatches, "finished")}
-      {renderSection("⚠️ Other", otherMatches, "other")}
+      )}
     </div>
   );
 };

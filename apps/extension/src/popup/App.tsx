@@ -3,6 +3,7 @@ import {
   Match,
   Preferences,
   DEFAULT_PREFERENCES,
+  formatSeasonYear,
 } from "@football-tracker/shared";
 import { getPreferences, getWatchlist } from "../shared/services/storage";
 import { fetchMatchesByLeague } from "../shared/api/openLigaDbClient";
@@ -170,7 +171,7 @@ const App: React.FC = () => {
         <span className="league-badge">
           {preferences.leagueShortcut.toUpperCase()}
         </span>
-        <span className="season-badge">{preferences.seasonYear}</span>
+        <span className="season-badge">{formatSeasonYear(preferences.seasonYear)}</span>
         <span className="watch-count">{watchlist.length} watching</span>
       </div>
 
