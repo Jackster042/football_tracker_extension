@@ -11,6 +11,13 @@ export const colors = {
     card: '#1A1F3A',        // Card/component background - dark blue-gray
     elevated: '#1E2440',    // Elevated elements (modals, sheets)
     input: '#161B33',       // Input fields background
+    dateSection: '#1E222D', // Grayish background for date scroller
+    dateSectionButton: '#2A2E3A', // Button background in date section
+  },
+
+  // Gradient Colors
+  gradient: {
+    topBar: ['#1A1F3A', '#12152A', '#0A0E27'], // Top app bar gradient
   },
 
   // Primary Brand Colors

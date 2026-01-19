@@ -83,6 +83,40 @@ export const MenuIcon: React.FC<IconProps> = ({
   );
 };
 
+// Sports Dropdown Icon - Settings gear with chevron down (combined button)
+export const SportsDropdownIcon: React.FC<IconProps> = ({ 
+  size = 24, 
+  color = theme.colors.text.primary 
+}) => {
+  return (
+    <View style={[styles.sportsDropdownContainer, { height: size }]}>
+      {/* Gear/Cog Icon */}
+      <View style={styles.gearWrapper}>
+        <View style={[styles.gearOuter, { borderColor: color }]} />
+        <View style={[styles.gearInner, { backgroundColor: color }]} />
+      </View>
+      {/* Chevron Down */}
+      <View style={[styles.dropdownChevron, { 
+        borderTopColor: color,
+      }]} />
+    </View>
+  );
+};
+
+// Chevron Down Icon - Simple chevron (standalone)
+export const ChevronDownIcon: React.FC<IconProps> = ({ 
+  size = 24, 
+  color = theme.colors.text.primary 
+}) => {
+  return (
+    <View style={[styles.chevronContainer, { width: size, height: size }]}>
+      <View style={[styles.chevronTriangle, { 
+        borderTopColor: color,
+      }]} />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   // Profile Icon
   profileContainer: {
@@ -183,5 +217,54 @@ const styles = StyleSheet.create({
     width: 4,
     height: 4,
     borderRadius: 2,
+  },
+  
+  // Sports Dropdown Icon
+  sportsDropdownContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  gearWrapper: {
+    width: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gearOuter: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 2,
+  },
+  gearInner: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    position: 'absolute',
+  },
+  dropdownChevron: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 4,
+    borderRightWidth: 4,
+    borderTopWidth: 5,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+  },
+  
+  // Chevron Icon
+  chevronContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  chevronTriangle: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
+    borderTopWidth: 6,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
   },
 });

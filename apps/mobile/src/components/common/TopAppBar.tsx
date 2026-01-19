@@ -6,31 +6,36 @@
 
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../../theme';
-import { ProfileIcon, SearchIcon, SettingsIcon, MenuIcon } from '../common/Icons';
+import { ProfileIcon, SearchIcon, SportsDropdownIcon } from '../common/Icons';
 
 interface TopAppBarProps {
   onProfilePress?: () => void;
   onSearchPress?: () => void;
-  onSettingsPress?: () => void;
-  onMenuPress?: () => void;
+  onSportsDropdownPress?: () => void;
+  sportsDropdownActive?: boolean;
 }
 
 export const TopAppBar: React.FC<TopAppBarProps> = ({
   onProfilePress,
   onSearchPress,
-  onSettingsPress,
-  onMenuPress,
+  onSportsDropdownPress,
+  sportsDropdownActive = false,
 }) => {
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={theme.colors.gradient.topBar}
+      locations={[0, 0.5, 1]}
+      style={styles.container}
+    >
       {/* Left side - Profile Icon */}
       <TouchableOpacity
-        style={styles.iconButton}
+        style={styles.profileButton}
         onPress={onProfilePress}
         activeOpacity={0.7}
       >
-        <ProfileIcon size={28} color={theme.colors.text.primary} />
+        <ProfileIcon size={32} color={theme.colors.text.primary} />
       </TouchableOpacity>
 
       {/* Spacer */}
@@ -38,31 +43,31 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
 
       {/* Right side - Action Icons */}
       <View style={styles.rightActions}>
+        {/* Search Button */}
         <TouchableOpacity
-          style={styles.iconButton}
+          style={styles.searchButton}
           onPress={onSearchPress}
           activeOpacity={0.7}
         >
-          <SearchIcon size={22} color={theme.colors.text.primary} />
+          <SearchIcon size={20} color={theme.colors.text.primary} />
         </TouchableOpacity>
 
+        {/* Sports Dropdown Button - Contained style */}
         <TouchableOpacity
-          style={styles.iconButton}
-          onPress={onSettingsPress}
+          style={[
+            styles.dropdownButton,
+            sportsDropdownActive && styles.dropdownButtonActive,
+          ]}
+          onPress={onSportsDropdownPress}
           activeOpacity={0.7}
         >
-          <SettingsIcon size={22} color={theme.colors.text.primary} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.iconButton}
-          onPress={onMenuPress}
-          activeOpacity={0.7}
-        >
-          <MenuIcon size={22} color={theme.colors.text.primary} />
+          <SportsDropdownIcon 
+            size={20} 
+            color={theme.colors.text.primary} 
+          />
         </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -70,22 +75,42 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.background.primary,
     paddingHorizontal: theme.spacing[4],
-    paddingTop: Platform.OS === 'ios' ? theme.spacing[2] : theme.spacing[4],
+    paddingTop: Platform.OS === 'ios' ? theme.spacing[1] : theme.spacing[3],
     paddingBottom: theme.spacing[3],
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border.subtle,
   },
   spacer: {
     flex: 1,
   },
+  profileButton: {
+    padding: theme.spacing[1],
+  },
   rightActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: theme.spacing[3],
+    gap: theme.spacing[2],
   },
-  iconButton: {
-    padding: theme.spacing[2],
+  searchButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: theme.colors.border.medium,
+  },
+  dropdownButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.background.card,
+    paddingHorizontal: theme.spacing[3],
+    paddingVertical: theme.spacing[2],
+    borderRadius: theme.radius.full,
+    gap: theme.spacing[1],
+  },
+  dropdownButtonActive: {
+    backgroundColor: theme.colors.primary.subtle,
+    borderWidth: 1,
+    borderColor: theme.colors.primary.main,
   },
 });

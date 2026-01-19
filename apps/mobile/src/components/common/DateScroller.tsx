@@ -91,16 +91,10 @@ export const DateScroller: React.FC<DateScrollerProps> = ({
               {dateItem.isToday ? 'TODAY' : dateItem.dayOfWeek}
             </Text>
             <Text style={[
-              styles.dayOfMonth,
+              styles.dateText,
               isDateSelected(dateItem.fullDate) && styles.textActive,
             ]}>
-              {dateItem.isToday ? dateItem.month : dateItem.dayOfMonth}
-            </Text>
-            <Text style={[
-              styles.month,
-              isDateSelected(dateItem.fullDate) && styles.textActive,
-            ]}>
-              {dateItem.isToday ? dateItem.dayOfMonth : ''}
+              {dateItem.month} {dateItem.dayOfMonth}
             </Text>
           </TouchableOpacity>
         ))}
@@ -122,50 +116,50 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.background.primary,
+    backgroundColor: theme.colors.background.dateSection,
     paddingVertical: theme.spacing[2],
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border.subtle,
   },
   scrollContent: {
-    paddingHorizontal: theme.spacing[3],
-    gap: theme.spacing[2],
+    paddingHorizontal: theme.spacing[2],
+    gap: theme.spacing[1],
   },
   dateItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: theme.spacing[3],
-    paddingVertical: theme.spacing[2],
-    borderRadius: theme.radius.md,
-    minWidth: 60,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: theme.radius.sm,
+    minWidth: 52,
   },
   dateItemActive: {
     backgroundColor: theme.colors.primary.main,
+    borderRadius: theme.radius.md,
   },
   dayOfWeek: {
-    ...theme.typography.styles.caption,
     fontSize: 10,
     fontWeight: '600',
-    color: theme.colors.text.secondary,
-    marginBottom: 2,
-  },
-  dayOfMonth: {
-    ...theme.typography.styles.body,
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: theme.colors.text.primary,
-  },
-  month: {
-    ...theme.typography.styles.caption,
-    fontSize: 9,
     color: theme.colors.text.tertiary,
+    marginBottom: 4,
+    letterSpacing: 0.3,
+    textTransform: 'uppercase',
+  },
+  dateText: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: theme.colors.text.primary,
+    lineHeight: 16,
   },
   textActive: {
     color: theme.colors.text.primary,
   },
   calendarButton: {
-    padding: theme.spacing[3],
-    marginLeft: theme.spacing[2],
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: theme.spacing[1],
     marginRight: theme.spacing[2],
+    borderRadius: theme.radius.md,
+    backgroundColor: theme.colors.background.dateSectionButton,
   },
 });

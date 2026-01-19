@@ -4,9 +4,10 @@
  */
 
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { theme } from '../theme';
-import { TopAppBar, DateScroller } from '../components/common';
+import { TopAppBar, DateScroller, SportsDropdownMenu, SPORTS_LIST } from '../components/common';
+import type { Sport } from '../components/common';
 import { 
   SortByHeader, 
   LeagueHeader, 
@@ -28,6 +29,8 @@ export const HomeScreen: React.FC = () => {
   );
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [sportsDropdownVisible, setSportsDropdownVisible] = useState(false);
+  const [selectedSport, setSelectedSport] = useState<Sport>(SPORTS_LIST[0]); // Default to Football
 
   const favoriteLeagues = getFavoriteLeagues();
   const otherLeagues = getOtherLeagues();
@@ -53,12 +56,17 @@ export const HomeScreen: React.FC = () => {
     console.log('Search pressed');
   };
 
-  const handleSettingsPress = () => {
-    console.log('Settings pressed');
+  const handleSportsDropdownPress = () => {
+    setSportsDropdownVisible(!sportsDropdownVisible);
   };
 
-  const handleMenuPress = () => {
-    console.log('Menu pressed');
+  const handleSelectSport = (sport: Sport) => {
+    console.log('Sport selected:', sport.name);
+    setSelectedSport(sport);
+  };
+
+  const handleCloseSportsDropdown = () => {
+    setSportsDropdownVisible(false);
   };
 
   const handleDateSelect = (date: Date) => {
@@ -133,26 +141,35 @@ export const HomeScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Top App Bar */}
-      <TopAppBar
-        onProfilePress={handleProfilePress}
-        onSearchPress={handleSearchPress}
-        onSettingsPress={handleSettingsPress}
-        onMenuPress={handleMenuPress}
-      />
+    <TouchableWithoutFeedback onPress={handleCloseSportsDropdown}>
+      <View style={styles.container}>
+        {/* Top App Bar */}
+        <TopAppBar
+          onProfilePress={handleProfilePress}
+          onSearchPress={handleSearchPress}
+          onSportsDropdownPress={handleSportsDropdownPress}
+          sportsDropdownActive={sportsDropdownVisible}
+        />
 
-      {/* Date Scroller */}
-      <DateScroller
-        onDateSelect={handleDateSelect}
-        onCalendarPress={handleCalendarPress}
-      />
+        {/* Sports Dropdown Menu */}
+        <SportsDropdownMenu
+          visible={sportsDropdownVisible}
+          selectedSportId={selectedSport.id}
+          onSelectSport={handleSelectSport}
+          onClose={handleCloseSportsDropdown}
+        />
 
-      {/* Main Content */}
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-      >
+        {/* Date Scroller */}
+        <DateScroller
+          onDateSelect={handleDateSelect}
+          onCalendarPress={handleCalendarPress}
+        />
+
+        {/* Main Content */}
+        <ScrollView
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+        >
         {/* Sort By Header */}
         <SortByHeader
           title="Sort By Time"
@@ -173,17 +190,18 @@ export const HomeScreen: React.FC = () => {
             {otherLeagues.map(league => renderLeagueSection(league))}
           </>
         )}
-      </ScrollView>
+        </ScrollView>
 
-      {/* Calendar Modal */}
-      <CalendarModal
-        visible={calendarVisible}
-        selectedDate={selectedDate}
-        matchDates={matchDates}
-        onDateSelect={handleCalendarDateSelect}
-        onClose={handleCalendarClose}
-      />
-    </View>
+        {/* Calendar Modal */}
+        <CalendarModal
+          visible={calendarVisible}
+          selectedDate={selectedDate}
+          matchDates={matchDates}
+          onDateSelect={handleCalendarDateSelect}
+          onClose={handleCalendarClose}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
