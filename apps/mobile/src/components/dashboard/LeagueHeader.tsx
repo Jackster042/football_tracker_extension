@@ -107,25 +107,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   flagText: {
-    ...theme.typography.styles.caption,
+    fontFamily: theme.typography.fonts.bold,
     fontSize: 10,
-    fontWeight: 'bold',
     color: theme.colors.text.primary,
   },
   textContainer: {
     flex: 1,
   },
   country: {
-    ...theme.typography.styles.caption,
+    fontFamily: theme.typography.fonts.semibold,
     fontSize: 10,
-    fontWeight: '600',
     color: theme.colors.text.tertiary,
     marginBottom: 2,
   },
   leagueName: {
-    ...theme.typography.styles.body,
+    fontFamily: theme.typography.fonts.semibold,
     fontSize: 15,
-    fontWeight: '600',
     color: theme.colors.text.primary,
   },
   rightSection: {
@@ -134,10 +131,9 @@ const styles = StyleSheet.create({
     gap: theme.spacing[2],
   },
   matchCount: {
-    ...theme.typography.styles.body,
+    fontFamily: theme.typography.fonts.semibold,
     fontSize: 13,
     color: theme.colors.accent.live,
-    fontWeight: '600',
   },
   chevron: {
     width: 0,

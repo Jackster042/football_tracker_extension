@@ -29,9 +29,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background.primary,
   },
   title: {
-    ...theme.typography.styles.body,
+    fontFamily: theme.typography.fonts.bold,
     fontSize: 12,
-    fontWeight: '700',
     color: theme.colors.accent.warning,
     letterSpacing: 0.5,
   },

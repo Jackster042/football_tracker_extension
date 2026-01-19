@@ -12,6 +12,7 @@ export const colors = {
     elevated: '#1E2440',    // Elevated elements (modals, sheets)
     input: '#161B33',       // Input fields background
     dateSection: '#1E222D', // Grayish background for date scroller
+    dateSectionTwo: ['#1A1F3A', '#12152A', '#0A0E27'], // 
     dateSectionButton: '#2A2E3A', // Button background in date section
   },
 
@@ -44,6 +45,7 @@ export const colors = {
     tertiary: '#6B7280',    // Low emphasis - timestamps, meta
     disabled: '#4B5563',    // Disabled text
     inverse: '#0A0E27',     // Text on light backgrounds
+    light: '#6B88FF', 
   },
 
   // Border & Divider Colors

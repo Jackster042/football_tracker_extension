@@ -79,7 +79,7 @@ export const DateScroller: React.FC<DateScrollerProps> = ({
             key={index}
             style={[
               styles.dateItem,
-              isDateSelected(dateItem.fullDate) && styles.dateItemActive,
+              // isDateSelected(dateItem.fullDate) && styles.dateItemLight,
             ]}
             onPress={() => handleDatePress(dateItem.fullDate)}
             activeOpacity={0.7}
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.background.dateSection,
+    backgroundColor: theme.colors.background.dateSectionTwo[1],
     paddingVertical: theme.spacing[2],
   },
   scrollContent: {
@@ -132,25 +132,26 @@ const styles = StyleSheet.create({
     minWidth: 52,
   },
   dateItemActive: {
-    backgroundColor: theme.colors.primary.main,
-    borderRadius: theme.radius.md,
+    // backgroundColor: theme.colors.primary.main,
+    // borderRadius: theme.radius.md,
+    color: theme.colors.text.light,
   },
   dayOfWeek: {
+    fontFamily: theme.typography.fonts.semibold,
     fontSize: 10,
-    fontWeight: '600',
     color: theme.colors.text.tertiary,
     marginBottom: 4,
     letterSpacing: 0.3,
     textTransform: 'uppercase',
   },
   dateText: {
+    fontFamily: theme.typography.fonts.medium,
     fontSize: 13,
-    fontWeight: '500',
-    color: theme.colors.text.primary,
+    color: theme.colors.text.tertiary,
     lineHeight: 16,
   },
   textActive: {
-    color: theme.colors.text.primary,
+    color: theme.colors.text.light,
   },
   calendarButton: {
     width: 40,

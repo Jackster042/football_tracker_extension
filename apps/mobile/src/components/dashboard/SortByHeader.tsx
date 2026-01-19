@@ -88,9 +88,8 @@ const styles = StyleSheet.create({
     top: 5,
   },
   title: {
-    ...theme.typography.styles.body,
+    fontFamily: theme.typography.fonts.semibold,
     fontSize: 16,
-    fontWeight: '600',
     color: theme.colors.text.primary,
   },
   rightSection: {
@@ -99,12 +98,12 @@ const styles = StyleSheet.create({
     gap: theme.spacing[2],
   },
   count: {
-    ...theme.typography.styles.body,
+    fontFamily: theme.typography.fonts.regular,
     fontSize: 14,
   },
   countCurrent: {
+    fontFamily: theme.typography.fonts.bold,
     color: theme.colors.accent.live,
-    fontWeight: 'bold',
   },
   countTotal: {
     color: theme.colors.text.tertiary,

@@ -190,14 +190,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   sportName: {
+    fontFamily: theme.typography.fonts.medium,
     fontSize: 14,
-    fontWeight: '500',
     color: theme.colors.text.primary,
     flex: 1,
   },
   sportNameSelected: {
+    fontFamily: theme.typography.fonts.semibold,
     color: theme.colors.primary.light,
-    fontWeight: '600',
   },
   checkmark: {
     width: 18,
@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   checkmarkText: {
+    fontFamily: theme.typography.fonts.bold,
     fontSize: 14,
     color: theme.colors.primary.light,
-    fontWeight: 'bold',
   },
 });

@@ -62,10 +62,9 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   label: {
-    ...theme.typography.styles.caption,
+    fontFamily: theme.typography.fonts.medium,
     marginTop: theme.spacing[1],
     fontSize: 11,
-    fontWeight: '500',
   },
   labelActive: {
     color: theme.colors.primary.main,

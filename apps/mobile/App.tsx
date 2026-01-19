@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, View, StatusBar, SafeAreaView, ActivityIndicator } from 'react-native';
+import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_900Black } from '@expo-google-fonts/inter';
 import { theme } from './src/theme';
 import { BottomTabBar } from './src/components/navigation';
 import { TabRoute } from './src/navigation/types';
@@ -13,6 +14,23 @@ import {
 
 export default function App() {
   const [activeRoute, setActiveRoute] = useState<TabRoute>('Home');
+  
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_900Black,
+  });
+
+  // Show loading indicator while fonts are loading
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={theme.colors.primary.main} />
+      </View>
+    );
+  }
 
   const renderScreen = () => {
     switch (activeRoute) {
@@ -55,6 +73,12 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.colors.background.primary,
+  },
   safeArea: {
     flex: 1,
     backgroundColor: theme.colors.background.primary,

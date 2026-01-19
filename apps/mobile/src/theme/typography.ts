@@ -1,15 +1,16 @@
 /**
  * Typography System
- * Clean Sans-Serif based on Inter/Roboto style
+ * Using Inter font family for clean, modern UI
  */
 
 export const typography = {
-  // Font Families
+  // Font Families - Inter from Google Fonts
   fonts: {
-    regular: 'System',      // React Native default (San Francisco on iOS, Roboto on Android)
-    medium: 'System',
-    semibold: 'System',
-    bold: 'System',
+    regular: 'Inter_400Regular',
+    medium: 'Inter_500Medium',
+    semibold: 'Inter_600SemiBold',
+    bold: 'Inter_700Bold',
+    black: 'Inter_900Black',
   },
 
   // Font Weights
@@ -42,115 +43,115 @@ export const typography = {
     relaxed: 1.75,
   },
 
-  // Text Styles (Presets)
+  // Text Styles (Presets) - Using Inter font family
   styles: {
     // Headings
     h1: {
+      fontFamily: 'Inter_700Bold',
       fontSize: 32,
-      fontWeight: '700' as const,
       lineHeight: 38,
       letterSpacing: -0.5,
     },
     h2: {
+      fontFamily: 'Inter_700Bold',
       fontSize: 28,
-      fontWeight: '700' as const,
       lineHeight: 34,
       letterSpacing: -0.3,
     },
     h3: {
+      fontFamily: 'Inter_600SemiBold',
       fontSize: 24,
-      fontWeight: '600' as const,
       lineHeight: 30,
       letterSpacing: -0.2,
     },
     h4: {
+      fontFamily: 'Inter_600SemiBold',
       fontSize: 20,
-      fontWeight: '600' as const,
       lineHeight: 26,
     },
     h5: {
+      fontFamily: 'Inter_600SemiBold',
       fontSize: 18,
-      fontWeight: '600' as const,
       lineHeight: 24,
     },
     h6: {
+      fontFamily: 'Inter_600SemiBold',
       fontSize: 16,
-      fontWeight: '600' as const,
       lineHeight: 22,
     },
 
     // Body Text
     body: {
+      fontFamily: 'Inter_400Regular',
       fontSize: 15,
-      fontWeight: '400' as const,
       lineHeight: 22,
     },
     bodyLarge: {
+      fontFamily: 'Inter_400Regular',
       fontSize: 16,
-      fontWeight: '400' as const,
       lineHeight: 24,
     },
     bodySmall: {
+      fontFamily: 'Inter_400Regular',
       fontSize: 13,
-      fontWeight: '400' as const,
       lineHeight: 18,
     },
 
     // Labels & Captions
     label: {
+      fontFamily: 'Inter_500Medium',
       fontSize: 15,
-      fontWeight: '500' as const,
       lineHeight: 20,
     },
     labelSmall: {
+      fontFamily: 'Inter_500Medium',
       fontSize: 13,
-      fontWeight: '500' as const,
       lineHeight: 18,
     },
     caption: {
+      fontFamily: 'Inter_400Regular',
       fontSize: 13,
-      fontWeight: '400' as const,
       lineHeight: 18,
     },
     captionSmall: {
+      fontFamily: 'Inter_400Regular',
       fontSize: 11,
-      fontWeight: '400' as const,
       lineHeight: 14,
     },
 
     // UI Text
     button: {
+      fontFamily: 'Inter_600SemiBold',
       fontSize: 15,
-      fontWeight: '600' as const,
       lineHeight: 20,
       letterSpacing: 0.3,
     },
     buttonSmall: {
+      fontFamily: 'Inter_600SemiBold',
       fontSize: 13,
-      fontWeight: '600' as const,
       lineHeight: 18,
       letterSpacing: 0.3,
     },
     tabLabel: {
+      fontFamily: 'Inter_500Medium',
       fontSize: 11,
-      fontWeight: '500' as const,
       lineHeight: 14,
     },
 
     // Scores & Numbers
     scoreMain: {
+      fontFamily: 'Inter_700Bold',
       fontSize: 20,
-      fontWeight: '700' as const,
       lineHeight: 24,
     },
     scoreLarge: {
+      fontFamily: 'Inter_700Bold',
       fontSize: 32,
-      fontWeight: '700' as const,
       lineHeight: 38,
     },
     time: {
+      fontFamily: 'Inter_500Medium',
       fontSize: 11,
-      fontWeight: '500' as const,
       lineHeight: 14,
       letterSpacing: 0.5,
     },

@@ -117,15 +117,14 @@ const styles = StyleSheet.create({
     marginRight: theme.spacing[3],
   },
   time: {
-    ...theme.typography.styles.caption,
+    fontFamily: theme.typography.fonts.regular,
     fontSize: 12,
     color: theme.colors.text.secondary,
     marginBottom: 2,
   },
   status: {
-    ...theme.typography.styles.caption,
+    fontFamily: theme.typography.fonts.semibold,
     fontSize: 11,
-    fontWeight: '600',
     color: theme.colors.text.tertiary,
   },
   liveIndicator: {
@@ -169,16 +168,14 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border.subtle,
   },
   teamName: {
-    ...theme.typography.styles.body,
+    fontFamily: theme.typography.fonts.medium,
     fontSize: 14,
-    fontWeight: '500',
     color: theme.colors.text.primary,
     flex: 1,
   },
   score: {
-    ...theme.typography.styles.body,
+    fontFamily: theme.typography.fonts.bold,
     fontSize: 16,
-    fontWeight: 'bold',
     color: theme.colors.text.primary,
     minWidth: 20,
     textAlign: 'right',
