@@ -172,7 +172,7 @@ export const HomeScreen: React.FC = () => {
         >
         {/* Sort By Header */}
         <SortByHeader
-          title="Sort By Time"
+          title="All games"
           matchCount={completedMatches}
           totalMatches={totalMatches}
           onPress={handleSortByPress}

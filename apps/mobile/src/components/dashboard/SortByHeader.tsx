@@ -16,7 +16,7 @@ interface SortByHeaderProps {
 }
 
 export const SortByHeader: React.FC<SortByHeaderProps> = ({
-  title = 'Sort By Time',
+  title = 'All games',
   matchCount = 38,
   totalMatches = 120,
   onPress,

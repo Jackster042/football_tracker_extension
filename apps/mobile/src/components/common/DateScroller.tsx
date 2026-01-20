@@ -101,13 +101,13 @@ export const DateScroller: React.FC<DateScrollerProps> = ({
       </ScrollView>
       
       {/* Calendar Icon Button */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.calendarButton}
         onPress={onCalendarPress}
         activeOpacity={0.7}
       >
         <CalendarIcon size={20} color={theme.colors.text.primary} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
