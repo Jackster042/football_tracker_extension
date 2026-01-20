@@ -7,7 +7,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { theme } from '../../theme';
-import { CalendarIcon } from '../common/Icons';
 
 interface DateItem {
   dayOfWeek: string;
@@ -24,7 +23,6 @@ interface DateScrollerProps {
 
 export const DateScroller: React.FC<DateScrollerProps> = ({
   onDateSelect,
-  onCalendarPress,
 }) => {
   const scrollViewRef = useRef<ScrollView>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
