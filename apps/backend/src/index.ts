@@ -18,7 +18,7 @@ export interface Env {
 }
 
 export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, _env: Env, _ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     // Health check endpoint
@@ -77,7 +77,7 @@ export default {
   },
 
   // Scheduled handler for cron jobs
-  async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
+  async scheduled(event: ScheduledEvent, _env: Env, _ctx: ExecutionContext): Promise<void> {
     // Example: Fetch and cache match data on a schedule
     console.log('Scheduled job running at:', new Date(event.scheduledTime).toISOString());
   },
