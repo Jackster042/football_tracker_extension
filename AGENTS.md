@@ -8,6 +8,8 @@ pnpm install                    # Install all dependencies
 pnpm build                      # Build all apps
 pnpm typecheck                  # Type check all packages
 pnpm clean                      # Clean build artifacts
+pnpm lint                       # Run ESLint on all files
+pnpm lint:fix                   # Run ESLint with auto-fix
 ```
 
 ### Chrome Extension
@@ -34,7 +36,7 @@ pnpm --filter @football-tracker/backend typecheck
 pnpm --filter @football-tracker/shared typecheck
 ```
 
-**Note**: No test framework currently configured. Type checking serves as basic validation.
+**Note**: No test framework currently configured. Type checking and linting serve as basic validation.
 
 ## Code Style Guidelines
 
@@ -43,6 +45,13 @@ pnpm --filter @football-tracker/shared typecheck
 - Compiler flags: `noUnusedLocals`, `noUnusedParameters`, `noFallthroughCasesInSwitch`
 - Use Zod for runtime validation of external data
 - Infer types from Zod schemas: `type Foo = z.infer<typeof FooSchema>`
+
+### ESLint Configuration
+- Config file: `.eslintrc.json` at project root
+- Extends: ESLint recommended, TypeScript-ESLint recommended, React recommended, React Hooks recommended
+- Rules set to `warn` level (non-blocking in CI)
+- Auto-fix enabled via husky pre-commit hook
+- Ignored: `dist/`, `node_modules/`, `.expo/`, `.wrangler/`, config files
 
 ### Imports
 - Use path aliases: `@/` for app src, `@football-tracker/shared` for shared types

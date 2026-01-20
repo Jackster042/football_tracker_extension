@@ -53,7 +53,7 @@ const MatchCard: React.FC<MatchCardProps> = ({
       return (
         <span className="status-badge live">
           <span className="live-dot"></span>
-          {matchMinute}'
+          {matchMinute}&apos;
         </span>
       );
     }

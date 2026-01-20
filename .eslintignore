@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.expo/
+.wrangler/
+*.config.js
+*.config.ts
+.eslintrc.json
